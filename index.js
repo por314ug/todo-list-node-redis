@@ -6,8 +6,8 @@ const app = express();
 app.use(bodyParser.json());
 
 const redisClient = redis.createClient({
-    host: 'redis-server',
-    port: 6379
+    host: process.env.REDIS_HOST || 'redis-server', // Fallback to 'redis-server' if the environment variable is not set
+    port: process.env.REDIS_PORT || 6379 // Default Redis port
 });
 redisClient.connect();
 
