@@ -1,6 +1,14 @@
 version: '3.7'  # It's good practice to specify a more specific version if not the latest
 
 services:
+
+  redis-server:
+    image: "redis"
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+      
   app:
     build: .
     ports:
@@ -13,12 +21,6 @@ services:
       - REDIS_HOST=redis-server
       - REDIS_PORT=6379
 
-  redis-server:
-    image: "redis"
-    ports:
-      - "6379:6379"
-    networks:
-      - app-network
 
 networks:
   app-network:
