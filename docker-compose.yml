@@ -1,4 +1,5 @@
-version: '3'
+version: '3.7'  # It's good practice to specify a more specific version if not the latest
+
 services:
   app:
     build: .
@@ -6,8 +7,17 @@ services:
       - "3000:3000"
     depends_on:
       - redis-server
+    networks:
+      - app-network
     environment:
       - REDIS_HOST=redis-server
       - REDIS_PORT=6379
+
   redis-server:
     image: "redis"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
